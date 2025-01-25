@@ -1,0 +1,201 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.lock
+*.swp
+*.swo
+*.swn
+*.bak
+*.pid
+
+# Dependency directories
+node_modules/
+vendor/
+bower_components/
+.venv/
+.env/
+pip-wheel-metadata/
+__pycache__/
+target/
+build/
+dist/
+
+# IDEs and editors
+.idea/
+.vscode/
+.vscode-test/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.tmproj
+*.ncb
+*.suo
+*.sln
+*.opt
+*.user
+*.o
+*.dll
+*.idb
+*.pdb
+
+# MacOS and Windows system files
+.DS_Store
+.AppleDouble
+.LSOverride
+*.lnk
+
+# Environment files
+.env
+.env.*
+*.secret
+*.local
+*.env.*
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Rust
+target/
+Cargo.lock
+
+# Go
+/go.sum
+/go.work
+/.idea/go.*
+.idea/go.mod
+
+# Ruby
+*.gem
+.rvmrc
+.gemset
+
+# PHP
+/vendor/
+composer.lock
+
+# Frontend
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.npm/
+
+# JavaScript/TypeScript build artifacts
+*.js
+*.jsx
+*.ts
+*.tsx
+*.map
+*.d.ts
+
+# SASS/SCSS and CSS
+*.sass-cache
+*.css.map
+*.scss.map
+
+# Frameworks
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+dist/
+
+# Create React App
+build/
+
+# Angular
+.angular/
+dist/
+generated/
+
+# Vue
+.vuepress/
+.vite/
+.vuetify/
+dist/
+
+# Svelte
+.svelte-kit/
+
+# Flutter
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+.packages
+ios/Flutter/.last_build_id
+pubspec.lock
+
+# Android
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+*.so
+*.o
+*.obj
+*.lib
+*.a
+*.exe
+bin/
+gen/
+output/
+captures/
+
+# iOS
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+!default.mode1v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcworkspace
+xcuserdata/
+*.xcodeproj/
+profile/
+DerivedData/
+.idea/
+
+# Testing
+coverage/
+.nyc_output/
+jest-html-reports/
+reports/
+
+# Containers and cloud environments
+docker-compose.override.yml
+.dockerignore
+.docker/
+.Dockerfile
+*.log
+.env.local
+.env.production
+.env.staging
+.env.dev
+
+# Local machine-specific files
+.vscode/*
+user-specific-config.js
+local-machine-config.json
+``
