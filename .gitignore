@@ -1,201 +1,46 @@
-# Operating system files
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Logs and temporary files
+# Logs
+logs
 *.log
-*.tmp
-*.lock
-*.swp
-*.swo
-*.swn
-*.bak
-*.pid
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Dependency directories
-node_modules/
-vendor/
-bower_components/
-.venv/
-.env/
-pip-wheel-metadata/
-__pycache__/
-target/
-build/
-dist/
-
-# IDEs and editors
-.idea/
-.vscode/
-.vscode-test/
-*.sublime-project
-*.sublime-workspace
-*.code-workspace
-*.tmproj
-*.ncb
-*.suo
-*.sln
-*.opt
-*.user
-*.o
-*.dll
-*.idb
-*.pdb
-
-# MacOS and Windows system files
-.DS_Store
-.AppleDouble
-.LSOverride
-*.lnk
+# Runtime data
+/dist
+/build
+/.vite
+/.svelte-kit
+/coverage
 
 # Environment files
 .env
-.env.*
-*.secret
-*.local
-*.env.*
-
-# Python
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-.mypy_cache/
-
-# Java
-*.class
-*.jar
-*.war
-*.ear
-
-# Rust
-target/
-Cargo.lock
-
-# Go
-/go.sum
-/go.work
-/.idea/go.*
-.idea/go.mod
-
-# Ruby
-*.gem
-.rvmrc
-.gemset
-
-# PHP
-/vendor/
-composer.lock
-
-# Frontend
-node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-.npm/
-
-# JavaScript/TypeScript build artifacts
-*.js
-*.jsx
-*.ts
-*.tsx
-*.map
-*.d.ts
-
-# SASS/SCSS and CSS
-*.sass-cache
-*.css.map
-*.scss.map
-
-# Frameworks
-# Next.js
-.next/
-out/
-
-# Nuxt.js
-.nuxt/
-dist/
-
-# Create React App
-build/
-
-# Angular
-.angular/
-dist/
-generated/
-
-# Vue
-.vuepress/
-.vite/
-.vuetify/
-dist/
-
-# Svelte
-.svelte-kit/
-
-# Flutter
-build/
-.flutter-plugins
-.flutter-plugins-dependencies
-.flutter-versions
-.packages
-ios/Flutter/.last_build_id
-pubspec.lock
-
-# Android
-*.apk
-*.aar
-*.ap_
-*.dex
-*.class
-*.so
-*.o
-*.obj
-*.lib
-*.a
-*.exe
-bin/
-gen/
-output/
-captures/
-
-# iOS
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-*.mode2v3
-!default.mode1v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-*.xcworkspace
-xcuserdata/
-*.xcodeproj/
-profile/
-DerivedData/
-.idea/
-
-# Testing
-coverage/
-.nyc_output/
-jest-html-reports/
-reports/
-
-# Containers and cloud environments
-docker-compose.override.yml
-.dockerignore
-.docker/
-.Dockerfile
-*.log
 .env.local
-.env.production
-.env.staging
-.env.dev
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Local machine-specific files
-.vscode/*
-user-specific-config.js
-local-machine-config.json
-``
+# Dependencies
+/node_modules
+
+# Cache
+.cache
+*.tmp
+*.temp
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Local development
+.husky
+.vscode
