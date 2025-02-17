@@ -15,9 +15,11 @@
     "@tanstack/react-query": "^5.65.1",
     "@tanstack/react-query-devtools": "^5.65.1",
     "@tanstack/react-router": "^1.98.0",
+    "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.26.3",
