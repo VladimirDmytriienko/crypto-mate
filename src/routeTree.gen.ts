@@ -14,6 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as SignUpIndexImport } from './routes/sign-up/index'
 import { Route as SignInIndexImport } from './routes/sign-in/index'
+import { Route as PortfolioIndexImport } from './routes/portfolio/index'
+import { Route as AddAssetIndexImport } from './routes/add-asset/index'
 import { Route as AboutIndexImport } from './routes/about/index'
 
 // Create/Update Routes
@@ -33,6 +35,18 @@ const SignUpIndexRoute = SignUpIndexImport.update({
 const SignInIndexRoute = SignInIndexImport.update({
   id: '/sign-in/',
   path: '/sign-in/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PortfolioIndexRoute = PortfolioIndexImport.update({
+  id: '/portfolio/',
+  path: '/portfolio/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AddAssetIndexRoute = AddAssetIndexImport.update({
+  id: '/add-asset/',
+  path: '/add-asset/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +74,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexImport
       parentRoute: typeof rootRoute
     }
+    '/add-asset/': {
+      id: '/add-asset/'
+      path: '/add-asset'
+      fullPath: '/add-asset'
+      preLoaderRoute: typeof AddAssetIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/portfolio/': {
+      id: '/portfolio/'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/sign-in/': {
       id: '/sign-in/'
       path: '/sign-in'
@@ -82,6 +110,8 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
+  '/add-asset': typeof AddAssetIndexRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
 }
@@ -89,6 +119,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
+  '/add-asset': typeof AddAssetIndexRoute
+  '/portfolio': typeof PortfolioIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
 }
@@ -97,22 +129,39 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about/': typeof AboutIndexRoute
+  '/add-asset/': typeof AddAssetIndexRoute
+  '/portfolio/': typeof PortfolioIndexRoute
   '/sign-in/': typeof SignInIndexRoute
   '/sign-up/': typeof SignUpIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/sign-in' | '/sign-up'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/add-asset'
+    | '/portfolio'
+    | '/sign-in'
+    | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/sign-in' | '/sign-up'
-  id: '__root__' | '/' | '/about/' | '/sign-in/' | '/sign-up/'
+  to: '/' | '/about' | '/add-asset' | '/portfolio' | '/sign-in' | '/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/about/'
+    | '/add-asset/'
+    | '/portfolio/'
+    | '/sign-in/'
+    | '/sign-up/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutIndexRoute: typeof AboutIndexRoute
+  AddAssetIndexRoute: typeof AddAssetIndexRoute
+  PortfolioIndexRoute: typeof PortfolioIndexRoute
   SignInIndexRoute: typeof SignInIndexRoute
   SignUpIndexRoute: typeof SignUpIndexRoute
 }
@@ -120,6 +169,8 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutIndexRoute: AboutIndexRoute,
+  AddAssetIndexRoute: AddAssetIndexRoute,
+  PortfolioIndexRoute: PortfolioIndexRoute,
   SignInIndexRoute: SignInIndexRoute,
   SignUpIndexRoute: SignUpIndexRoute,
 }
@@ -136,6 +187,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about/",
+        "/add-asset/",
+        "/portfolio/",
         "/sign-in/",
         "/sign-up/"
       ]
@@ -145,6 +198,12 @@ export const routeTree = rootRoute
     },
     "/about/": {
       "filePath": "about/index.tsx"
+    },
+    "/add-asset/": {
+      "filePath": "add-asset/index.tsx"
+    },
+    "/portfolio/": {
+      "filePath": "portfolio/index.tsx"
     },
     "/sign-in/": {
       "filePath": "sign-in/index.tsx"

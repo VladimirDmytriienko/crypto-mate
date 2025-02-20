@@ -8,28 +8,19 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className="min-h-screen bg-slate-200 dark:bg-stone-900 transition-colors duration-200">
-        <nav className="p-4">
-          <Link
-            to="/about"
-            className="text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
-          >
+      <div className="min-h-screen bg-zinc-950 dark:bg-white flex flex-col items-center">
+        <nav className="bg-white/10 dark:bg-black/10 backdrop-blur-lg border border-white/20 dark:border-black/20 text-white rounded-full px-4 py-2 flex space-x-4 shadow-lg text-sm mt-4">
+          <Link to="/about" className="text-gray-300 hover:text-white transition">
             About
           </Link>
-          <Link
-            to="/sign-in"
-            className="text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            sign-in
+          <Link to="/sign-in" className="text-gray-300 hover:text-white transition">
+            Sign In
           </Link>
-          <Link
-            to="/sign-up"
-            className="text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            sign-up
+          <Link to="/sign-up" className="text-gray-300 hover:text-white transition">
+            Sign Up
           </Link>
         </nav>
-        <div className="p-4 text-gray-900 dark:text-white">
+        <div className="text-gray-300 hover:text-white pt-12">
           <div>Hello "__root"!</div>
           <Outlet />
         </div>
