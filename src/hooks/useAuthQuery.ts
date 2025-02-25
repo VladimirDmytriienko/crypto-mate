@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getSession, getUser, signIn, signOut, signUp } from '../services/authService'
+import { getSession, getUser, signIn, signOut, signUp, resetPassword, updatePassword } from '../services/authService'
 
 
 export const useAuthQuery = () => {
@@ -44,6 +44,13 @@ export const useAuthQuery = () => {
     },
   });
 
+  const resetPasswordMutation = useMutation({
+    mutationFn: (email: string) => resetPassword(email),
+  });
+
+  const updatePasswordMutation = useMutation({
+    mutationFn: (password: string) => updatePassword(password),
+  });
   return {
     session: sessionQuery.data,
     user: userQuery.data,
@@ -51,5 +58,7 @@ export const useAuthQuery = () => {
     signIn: signInMutation.mutate,
     signUp: signUpMutation.mutate,
     signOut: signOutMutation.mutate,
+    resetPassword: resetPasswordMutation.mutate,
+    updatePassword: updatePasswordMutation.mutate,
   };
 };

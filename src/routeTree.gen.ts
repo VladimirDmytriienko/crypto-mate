@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as SignUpIndexImport } from './routes/sign-up/index'
 import { Route as SignInIndexImport } from './routes/sign-in/index'
+import { Route as ResetPasswordIndexImport } from './routes/reset-password/index'
 import { Route as PortfolioIndexImport } from './routes/portfolio/index'
 import { Route as AddAssetIndexImport } from './routes/add-asset/index'
 import { Route as AboutIndexImport } from './routes/about/index'
@@ -35,6 +36,12 @@ const SignUpIndexRoute = SignUpIndexImport.update({
 const SignInIndexRoute = SignInIndexImport.update({
   id: '/sign-in/',
   path: '/sign-in/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ResetPasswordIndexRoute = ResetPasswordIndexImport.update({
+  id: '/reset-password/',
+  path: '/reset-password/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioIndexImport
       parentRoute: typeof rootRoute
     }
+    '/reset-password/': {
+      id: '/reset-password/'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/sign-in/': {
       id: '/sign-in/'
       path: '/sign-in'
@@ -112,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutIndexRoute
   '/add-asset': typeof AddAssetIndexRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/reset-password': typeof ResetPasswordIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
 }
@@ -121,6 +136,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutIndexRoute
   '/add-asset': typeof AddAssetIndexRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/reset-password': typeof ResetPasswordIndexRoute
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
 }
@@ -131,6 +147,7 @@ export interface FileRoutesById {
   '/about/': typeof AboutIndexRoute
   '/add-asset/': typeof AddAssetIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/reset-password/': typeof ResetPasswordIndexRoute
   '/sign-in/': typeof SignInIndexRoute
   '/sign-up/': typeof SignUpIndexRoute
 }
@@ -142,16 +159,25 @@ export interface FileRouteTypes {
     | '/about'
     | '/add-asset'
     | '/portfolio'
+    | '/reset-password'
     | '/sign-in'
     | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/add-asset' | '/portfolio' | '/sign-in' | '/sign-up'
+  to:
+    | '/'
+    | '/about'
+    | '/add-asset'
+    | '/portfolio'
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
   id:
     | '__root__'
     | '/'
     | '/about/'
     | '/add-asset/'
     | '/portfolio/'
+    | '/reset-password/'
     | '/sign-in/'
     | '/sign-up/'
   fileRoutesById: FileRoutesById
@@ -162,6 +188,7 @@ export interface RootRouteChildren {
   AboutIndexRoute: typeof AboutIndexRoute
   AddAssetIndexRoute: typeof AddAssetIndexRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
+  ResetPasswordIndexRoute: typeof ResetPasswordIndexRoute
   SignInIndexRoute: typeof SignInIndexRoute
   SignUpIndexRoute: typeof SignUpIndexRoute
 }
@@ -171,6 +198,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutIndexRoute: AboutIndexRoute,
   AddAssetIndexRoute: AddAssetIndexRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
+  ResetPasswordIndexRoute: ResetPasswordIndexRoute,
   SignInIndexRoute: SignInIndexRoute,
   SignUpIndexRoute: SignUpIndexRoute,
 }
@@ -189,6 +217,7 @@ export const routeTree = rootRoute
         "/about/",
         "/add-asset/",
         "/portfolio/",
+        "/reset-password/",
         "/sign-in/",
         "/sign-up/"
       ]
@@ -204,6 +233,9 @@ export const routeTree = rootRoute
     },
     "/portfolio/": {
       "filePath": "portfolio/index.tsx"
+    },
+    "/reset-password/": {
+      "filePath": "reset-password/index.tsx"
     },
     "/sign-in/": {
       "filePath": "sign-in/index.tsx"
