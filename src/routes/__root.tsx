@@ -21,7 +21,6 @@ function RootComponent() {
           </Link>
         </nav>
         <div className="text-gray-300 hover:text-white pt-12">
-          <div>Hello "__root"!</div>
           <Outlet />
         </div>
       </div>
