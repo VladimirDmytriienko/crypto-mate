@@ -1,13 +1,7 @@
+import CoinGecko from '@/components/CoinGecko/CoinGecko'
+import FearGreedIndex from '@/components/FearGreedIndex/FearGreedIndex'
 import { createFileRoute } from '@tanstack/react-router'
-import { Button } from '../components/ui/button'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '../components/ui/sheet'
+
 
 
 export const Route = createFileRoute('/')({
@@ -16,21 +10,19 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   return (
-    <div>
-      <Button>Hello "/"!</Button>
-      <Sheet>
-        <SheetTrigger>Open</SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your account
-              and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
-        </SheetContent>
-      </Sheet>
+    <div className="grid grid-cols-3 gap-4 bg-gray-700 p-6 rounded-lg">
 
+      <div className=" rounded-md p-4 shadow-sm">
+        <CoinGecko />
+      </div>
+
+      <div className="bg-white rounded-md p-4 shadow-sm">
+
+      </div>
+
+      <div className="bg-white rounded-md p-4 shadow-sm">
+        <FearGreedIndex />
+      </div>
     </div>
   )
 }
