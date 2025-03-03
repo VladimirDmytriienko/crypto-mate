@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Avatar } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -38,17 +38,17 @@ const DexTokenProfiles = () => {
           </Card>
         )}
 
-        {data?.map((token) => (
-          <Card key={token.tokenAddress} className="p-4 flex flex-col gap-4 hover:shadow-lg transition-shadow rounded-xl">
+        {data?.map((token: any) => (  //! LATER ADD TYPE
+          <Card key={token?.tokenAddress} className="p-4 flex flex-col gap-4 hover:shadow-lg transition-shadow rounded-xl">
             <CardHeader className="flex flex-row items-center gap-4">
               <Avatar className="h-10 w-10">
-                <AvatarImage className="h-14 w-14" src={token.icon} alt={token.tokenAddress} />
+                <AvatarImage className="h-14 w-14" src={token?.icon} alt={token?.tokenAddress} />
               </Avatar>
 
               <div>
                 {/* 
                  */}
-                <Badge variant="secondary" className="text-xs uppercase">{token.chainId}</Badge>
+                <Badge variant="secondary" className="text-xs uppercase">{token?.chainId}</Badge>
               </div>
             </CardHeader>
             <CardContent>
