@@ -84,9 +84,9 @@ const CoinGecko = () => {
         )}
 
         {data?.map((crypto: CryptoData) => (
-          <Card key={crypto.id} className="p-4 flex flex-col gap-3 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-10 w-10">
+          <Card key={crypto.id} className="p-2 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div className="flex items-center gap-2">
+              <Avatar className="h-8 w-8">
                 <AvatarImage src={crypto.image} alt={crypto.name} />
               </Avatar>
 
