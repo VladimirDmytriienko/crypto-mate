@@ -16,7 +16,7 @@ const FearGreedIndex = () => {
       const json = await res.json()
       return json.data[0]
     },
-    staleTime: 1000 * 60 * 30 // 30 минут
+    staleTime: 1000 * 60 * 30
   })
 
   const getStatusColor = (value: number) => {
