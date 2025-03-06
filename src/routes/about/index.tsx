@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../../config/supabase/supabase';
+import { useAuthQuery } from '@/hooks/useAuthQuery';
 
 interface ExpTableRow {
   created_at: string;
@@ -29,15 +30,19 @@ function RouteComponent() {
     queryKey: ['expTable'],
     queryFn: fetchExpTable,
   });
+  const { user } = useAuthQuery()
+  console.log(user);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!data) return null;
 
   return (
-    <div>
+    <div className='text-sky-400'>
       About:
       {data[0]?.comment}
+
+      Email: {user?.email}
     </div>
   );
 }

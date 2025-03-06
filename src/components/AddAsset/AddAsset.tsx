@@ -27,6 +27,7 @@ import {
 
 
 interface AssetData {
+  email: string;
   assetName: string;
   symbol: string;
   type: string;
@@ -42,6 +43,7 @@ interface AddAssetProps {
 }
 
 const validationSchema = Yup.object({
+  email: Yup.string().required("Required"),
   assetName: Yup.string().required("Required"),
   symbol: Yup.string().required("Required"),
   type: Yup.string().required("Required"),
@@ -56,6 +58,7 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
   return (
     <Formik
       initialValues={{
+        email: initialData?.email || "",
         assetName: initialData?.assetName || "",
         symbol: initialData?.symbol || "",
         type: initialData?.type || "",
@@ -116,7 +119,7 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
                   )}
                 </div>
                 <div>
-                  <Label>Quantity</Label>
+                  <Label>Quantity </Label>
                   <Field as={Input} type="number" name="quantity" />
                   {touched.quantity && typeof errors.quantity === "string" && (
                     <p className="text-red-500 text-sm">{errors.quantity}</p>
@@ -126,9 +129,9 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
 
               <div>
                 <Label>Date of Purchase</Label>
-                <Popover>
+                <Popover >
                   <PopoverTrigger asChild>
-                    <span>
+                    <span className='flex '>
                       <Button
                         type="button"
                         variant={"outline"}
@@ -155,8 +158,6 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
                     />
                   </PopoverContent>
                 </Popover>
-
-
 
                 {touched.dateOfPurchase && typeof errors.dateOfPurchase === "string" && (
                   <p className="text-red-500 text-sm">{errors.dateOfPurchase}</p>
