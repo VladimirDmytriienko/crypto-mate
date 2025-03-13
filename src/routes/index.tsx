@@ -15,7 +15,7 @@ function RouteComponent() {
         <Tabs defaultValue="feargreed" className="w-full p-4">
           <TabsList className="grid grid-cols-3 w-full">
             <TabsTrigger value="coingecko">CoinGecko</TabsTrigger>
-            <TabsTrigger value="dexscreener">DexScreener</TabsTrigger>
+            <TabsTrigger value="dexscreener">Defi Llama</TabsTrigger>
             <TabsTrigger value="feargreed">Fear & Greed</TabsTrigger>
           </TabsList>
           <TabsContent value="coingecko">

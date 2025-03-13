@@ -137,7 +137,6 @@ const DefiLlamaData = () => {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Protocol Rankings</h2>
-
       <Table>
         <TableHeader>
           <TableRow>

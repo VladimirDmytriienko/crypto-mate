@@ -39,6 +39,9 @@ export const useAuthQuery = () => {
   const signOutMutation = useMutation({
     mutationFn: signOut,
     onSuccess: () => {
+      queryClient.resetQueries({ queryKey: ['session'] });
+      queryClient.resetQueries({ queryKey: ['user'] });
+
       queryClient.invalidateQueries({ queryKey: ['session'] });
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },

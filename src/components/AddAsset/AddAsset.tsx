@@ -1,6 +1,5 @@
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-
+import { Formik, Form, Field } from "formik";
 import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,18 +23,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
-
-interface AssetData {
-  email: string;
-  assetName: string;
-  symbol: string;
-  type: string;
-  purchasePrice: number;
-  quantity: number;
-  dateOfPurchase: string | null;
-  notes?: string;
-}
+import { addAsset } from '@/services/assetsService';
+import { useMutation } from '@tanstack/react-query';
+import { useAuthQuery } from '@/hooks/useAuthQuery';
+import { AssetData } from '@/services/assetsService';
 
 interface AddAssetProps {
   initialData?: AssetData;
@@ -43,7 +34,7 @@ interface AddAssetProps {
 }
 
 const validationSchema = Yup.object({
-  email: Yup.string().required("Required"),
+  // email: Yup.string().required("Required"),
   assetName: Yup.string().required("Required"),
   symbol: Yup.string().required("Required"),
   type: Yup.string().required("Required"),
@@ -53,12 +44,23 @@ const validationSchema = Yup.object({
   notes: Yup.string(),
 });
 
-const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
+const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
+  const { user } = useAuthQuery()
+  console.log(user?.email);
 
+  const mutation = useMutation({
+    mutationFn: addAsset,
+    onSuccess: () => {
+      alert("Asset added successfully!");
+    },
+    onError: (error) => {
+      console.error("Error adding asset:", error);
+    },
+  });
   return (
     <Formik
       initialValues={{
-        email: initialData?.email || "",
+        email: user?.email || "",
         assetName: initialData?.assetName || "",
         symbol: initialData?.symbol || "",
         type: initialData?.type || "",
@@ -67,8 +69,9 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, onSubmit }) => {
         dateOfPurchase: initialData?.dateOfPurchase || null,
         notes: initialData?.notes || "",
       }}
+      enableReinitialize={true}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
+      onSubmit={(values) => mutation.mutateAsync(values)}
     >
       {({ errors, touched, setFieldValue, values }) => (
         <Card className="max-w-lg mx-auto">
