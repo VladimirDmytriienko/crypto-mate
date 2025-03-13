@@ -14,7 +14,7 @@ export interface AssetData {
 
 export const addAsset = async (values: AssetData) => {
   const { data, error } = await supabase
-    .from("asset")
+    .from("assets")
     .insert([
       {
         email: values.email,
@@ -23,7 +23,7 @@ export const addAsset = async (values: AssetData) => {
         type: values.type,
         purchasePrice: values.purchasePrice,
         quantity: values.quantity,
-        dateOfPurcha: values.dateOfPurchase, 
+        dateOfPurchase: values.dateOfPurchase, 
         notes: values.notes || null,
       },
     ]);
@@ -52,21 +52,21 @@ export const updateAsset = async (id: number, values: AssetData) => {
     .eq("id", id);
 
   if (error) {
-    console.error("Ошибка при обновлении актива:", error);
+    console.error( error);
     throw error;
   }
 
   return data;
 };
 
-export const getAssets = async () => {
-  const { data, error } = await supabase.from("asset").select("*");
+export const getAssets = async (): Promise<AssetData[]> => {
+  const { data, error } = await supabase.from("assets").select("*");
 
   if (error) {
     console.error( error);
     throw error;
   }
-
+  
   return data;
 };
 
