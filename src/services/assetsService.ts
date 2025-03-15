@@ -8,8 +8,9 @@ export interface AssetData {
   type: string;
   purchasePrice: number;
   quantity: number;
-  dateOfPurchase: string | null;
-  notes?: string;
+  dateOfPurchase: null | string;
+  notes?: string | null;
+  user_id: string
 }
 
 export const addAsset = async (values: AssetData) => {
@@ -25,6 +26,7 @@ export const addAsset = async (values: AssetData) => {
         quantity: values.quantity,
         dateOfPurchase: values.dateOfPurchase, 
         notes: values.notes || null,
+        user_id: values.user_id,
       },
     ]);
 
@@ -59,9 +61,14 @@ export const updateAsset = async (id: number, values: AssetData) => {
   return data;
 };
 
-export const getAssets = async (): Promise<AssetData[]> => {
-  const { data, error } = await supabase.from("assets").select("*");
+export const getAssets = async (id?: number): Promise<AssetData[]> => {
+  let query = supabase.from("assets").select("*");
 
+  if (id !== undefined) {
+    query = query.eq("id", id);
+  }
+
+  const { data, error } = await query;
   if (error) {
     console.error( error);
     throw error;

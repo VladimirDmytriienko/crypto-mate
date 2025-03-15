@@ -18,7 +18,7 @@ const FearGreedIndex = () => {
     },
     staleTime: 1000 * 60 * 30,
   });
-  console.log(data);
+
 
   const getStatusColor = (value: number) => {
     if (value <= 25) return "#ef4444";

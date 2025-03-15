@@ -20,6 +20,7 @@ import { Route as PortfolioIndexImport } from './routes/portfolio/index'
 import { Route as AssetsIndexImport } from './routes/assets/index'
 import { Route as AddAssetIndexImport } from './routes/add-asset/index'
 import { Route as AboutIndexImport } from './routes/about/index'
+import { Route as AssetsAssetIdEditAssetImport } from './routes/assets/$assetId/editAsset'
 
 // Create/Update Routes
 
@@ -74,6 +75,12 @@ const AddAssetIndexRoute = AddAssetIndexImport.update({
 const AboutIndexRoute = AboutIndexImport.update({
   id: '/about/',
   path: '/about/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AssetsAssetIdEditAssetRoute = AssetsAssetIdEditAssetImport.update({
+  id: '/assets/$assetId/editAsset',
+  path: '/assets/$assetId/editAsset',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -144,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UpdatePasswordIndexImport
       parentRoute: typeof rootRoute
     }
+    '/assets/$assetId/editAsset': {
+      id: '/assets/$assetId/editAsset'
+      path: '/assets/$assetId/editAsset'
+      fullPath: '/assets/$assetId/editAsset'
+      preLoaderRoute: typeof AssetsAssetIdEditAssetImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -159,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
   '/update-password': typeof UpdatePasswordIndexRoute
+  '/assets/$assetId/editAsset': typeof AssetsAssetIdEditAssetRoute
 }
 
 export interface FileRoutesByTo {
@@ -171,6 +186,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof SignInIndexRoute
   '/sign-up': typeof SignUpIndexRoute
   '/update-password': typeof UpdatePasswordIndexRoute
+  '/assets/$assetId/editAsset': typeof AssetsAssetIdEditAssetRoute
 }
 
 export interface FileRoutesById {
@@ -184,6 +200,7 @@ export interface FileRoutesById {
   '/sign-in/': typeof SignInIndexRoute
   '/sign-up/': typeof SignUpIndexRoute
   '/update-password/': typeof UpdatePasswordIndexRoute
+  '/assets/$assetId/editAsset': typeof AssetsAssetIdEditAssetRoute
 }
 
 export interface FileRouteTypes {
@@ -198,6 +215,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/update-password'
+    | '/assets/$assetId/editAsset'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -209,6 +227,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/update-password'
+    | '/assets/$assetId/editAsset'
   id:
     | '__root__'
     | '/'
@@ -220,6 +239,7 @@ export interface FileRouteTypes {
     | '/sign-in/'
     | '/sign-up/'
     | '/update-password/'
+    | '/assets/$assetId/editAsset'
   fileRoutesById: FileRoutesById
 }
 
@@ -233,6 +253,7 @@ export interface RootRouteChildren {
   SignInIndexRoute: typeof SignInIndexRoute
   SignUpIndexRoute: typeof SignUpIndexRoute
   UpdatePasswordIndexRoute: typeof UpdatePasswordIndexRoute
+  AssetsAssetIdEditAssetRoute: typeof AssetsAssetIdEditAssetRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -245,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignInIndexRoute: SignInIndexRoute,
   SignUpIndexRoute: SignUpIndexRoute,
   UpdatePasswordIndexRoute: UpdatePasswordIndexRoute,
+  AssetsAssetIdEditAssetRoute: AssetsAssetIdEditAssetRoute,
 }
 
 export const routeTree = rootRoute
@@ -265,7 +287,8 @@ export const routeTree = rootRoute
         "/reset-password/",
         "/sign-in/",
         "/sign-up/",
-        "/update-password/"
+        "/update-password/",
+        "/assets/$assetId/editAsset"
       ]
     },
     "/": {
@@ -294,6 +317,9 @@ export const routeTree = rootRoute
     },
     "/update-password/": {
       "filePath": "update-password/index.tsx"
+    },
+    "/assets/$assetId/editAsset": {
+      "filePath": "assets/$assetId/editAsset.tsx"
     }
   }
 }

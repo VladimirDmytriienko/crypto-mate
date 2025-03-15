@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useQuery } from '@tanstack/react-query';
 import supabase from '../../config/supabase/supabase';
 import { useAuthQuery } from '@/hooks/useAuthQuery';
-import { AssetData, getAssets } from '@/services/assetsService';
 
 interface ExpTableRow {
   created_at: string;
@@ -32,12 +31,9 @@ function RouteComponent() {
     queryFn: fetchExpTable,
   });
   const { user } = useAuthQuery()
-  const { data: assetsQuery, isLoading: assetsLoading } = useQuery({
-    queryKey: ['assets'],
-    queryFn: getAssets,
-  });
 
-  if (isLoading || assetsLoading) return <div>Loading...</div>;
+
+  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!data) return null;
 
@@ -47,10 +43,7 @@ function RouteComponent() {
       {data[0]?.comment}
 
       Email: {user?.email}
-      assets: {assetsQuery?.map((assets: AssetData) =>
-        <p> {assets?.assetName}, {assets?.notes}, {assets?.quantity}, {assets?.purchasePrice}, {assets?.dateOfPurchase}</p>
 
-      )}
     </div>
   );
 }

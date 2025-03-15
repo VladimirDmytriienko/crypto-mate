@@ -19,7 +19,7 @@ interface AuthFormProps extends React.ComponentPropsWithoutRef<"div"> {
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ mode, className, ...props }) => {
-  const { signUp, signIn } = useAuthQuery();
+  const { signUp, signIn, googleSignIn } = useAuthQuery();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -105,7 +105,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, className, ...props }) => {
             <Button type="submit" className="w-full">
               {mode === "signup" ? "Sign Up" : "Login"}
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" onClick={() => googleSignIn()}>
               Login with Google
             </Button>
           </form>
