@@ -40,3 +40,10 @@ export const updatePassword = async (password: string) => {
   const { error } = await supabase.auth.updateUser({ password });
   if (error) throw error;
 };
+export const googleSignIn = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+  });
+  if (error) throw error;
+  return; 
+};

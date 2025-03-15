@@ -27,10 +27,11 @@ import { addAsset } from '@/services/assetsService';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthQuery } from '@/hooks/useAuthQuery';
 import { AssetData } from '@/services/assetsService';
+import { toast, } from 'sonner';
 
 interface AddAssetProps {
   initialData?: AssetData;
-  onSubmit: (values: AssetData) => void;
+  onSubmit?: (values: AssetData) => void;
 }
 
 const validationSchema = Yup.object({
@@ -46,12 +47,11 @@ const validationSchema = Yup.object({
 
 const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
   const { user } = useAuthQuery()
-  console.log(user?.email);
 
   const mutation = useMutation({
     mutationFn: addAsset,
     onSuccess: () => {
-      alert("Asset added successfully!");
+      toast('Asset added successfully')
     },
     onError: (error) => {
       console.error("Error adding asset:", error);
@@ -68,6 +68,7 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
         quantity: initialData?.quantity || 0,
         dateOfPurchase: initialData?.dateOfPurchase || null,
         notes: initialData?.notes || "",
+        user_id: user?.id ?? ""
       }}
       enableReinitialize={true}
       validationSchema={validationSchema}
@@ -180,8 +181,11 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
               </div>
             </Form>
           </CardContent>
+
         </Card>
+
       )}
+
     </Formik>
   );
 };
