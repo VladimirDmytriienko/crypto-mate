@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { toast } from 'sonner';
-import { getAssets } from '@/services/assetsService';
+import { Link } from '@tanstack/react-router';
+import { getAssets, deleteAsset } from '@/services/assetsService';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import {
@@ -21,12 +22,20 @@ import { Button } from '@/components/ui/button';
 
 export const AssetsList = () => {
   const { data } = useQuery({
-    queryKey: ['assets'],
+    queryKey: ['assets', null],
     queryFn: () => getAssets(),
   });
   const [selectedNotes, setSelectedNotes] = useState<null | string>(null);
-  console.log(data);
 
+  const delAsset = useMutation({
+    mutationFn: (id: number) => deleteAsset(id),
+    onSuccess: () => {
+      toast.success('Asset deleted successfully');
+    },
+    onError: () => {
+      toast.error('Error deleting asset');
+    },
+  })
   return (
     <Card className="p-4">
       <h2 className="text-lg font-semibold mb-4">Assets List</h2>
@@ -62,8 +71,13 @@ export const AssetsList = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem onClick={() => toast('Edit clicked')}>Edit</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => toast('Delete clicked')}>Delete</DropdownMenuItem>
+                    <Link to={`/assets/${asset.id}/editAsset`}>
+                      <DropdownMenuItem >
+                        Edit
+
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem onClick={() => delAsset.mutate(asset.id)}>Delete</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setSelectedNotes(asset.notes ?? null)}>View Notes</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -80,6 +94,6 @@ export const AssetsList = () => {
           <p>{selectedNotes}</p>
         </DialogContent>
       </Dialog>
-    </Card>
+    </Card >
   )
 }

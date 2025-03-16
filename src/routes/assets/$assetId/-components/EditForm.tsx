@@ -11,7 +11,6 @@ const EditForm = () => {
     queryKey: ['assets'],
     queryFn: () => getAssets(assetId),
   });
-  console.log(assetsQuery);
 
   return (
     <>

@@ -23,14 +23,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { addAsset } from '@/services/assetsService';
+import { addAsset, AssetDataBase, updateAsset } from '@/services/assetsService';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthQuery } from '@/hooks/useAuthQuery';
 import { AssetData } from '@/services/assetsService';
 import { toast, } from 'sonner';
 
 interface AddAssetProps {
-  initialData?: AssetData;
+  initialData?: AssetDataBase;
   onSubmit?: (values: AssetData) => void;
 }
 
@@ -49,17 +49,26 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
   const { user } = useAuthQuery()
 
   const mutation = useMutation({
-    mutationFn: addAsset,
+    mutationFn: async (values: AssetDataBase | AssetData) => {
+      if ('id' in values) {
+        console.log("'id' in values");
+
+        return updateAsset(values.id, values);
+      }
+      return addAsset(values);
+    },
     onSuccess: () => {
-      toast('Asset added successfully')
+      toast('Asset added successfully');
     },
     onError: (error) => {
       console.error("Error adding asset:", error);
     },
   });
+
   return (
     <Formik
       initialValues={{
+        ...(initialData ? { id: initialData.id } : {}),
         email: user?.email || "",
         assetName: initialData?.assetName || "",
         symbol: initialData?.symbol || "",
@@ -68,12 +77,13 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
         quantity: initialData?.quantity || 0,
         dateOfPurchase: initialData?.dateOfPurchase || null,
         notes: initialData?.notes || "",
-        user_id: user?.id ?? ""
+        user_id: user?.id ?? "",
       }}
       enableReinitialize={true}
       validationSchema={validationSchema}
       onSubmit={(values) => mutation.mutateAsync(values)}
     >
+
       {({ errors, touched, setFieldValue, values }) => (
         <Card className="max-w-lg mx-auto">
           <CardHeader>

@@ -1,7 +1,7 @@
 import  supabase  from '../config/supabase/supabase'
 
 export interface AssetData {
-  id?: number; 
+
   email: string;
   assetName: string;
   symbol: string;
@@ -12,7 +12,9 @@ export interface AssetData {
   notes?: string | null;
   user_id: string
 }
-
+export interface AssetDataBase extends AssetData {
+  id: number
+}
 export const addAsset = async (values: AssetData) => {
   const { data, error } = await supabase
     .from("assets")
@@ -38,17 +40,18 @@ export const addAsset = async (values: AssetData) => {
   return data;
 };
 
-export const updateAsset = async (id: number, values: AssetData) => {
+export const updateAsset = async (id: number, values: AssetDataBase) => {
   const { data, error } = await supabase
-    .from("asset")
+    .from("assets")
     .update({
+      id: values.id,
       email: values.email,
       assetName: values.assetName,
       symbol: values.symbol,
       type: values.type,
       purchasePrice: values.purchasePrice,
       quantity: values.quantity,
-      dateOfPurcha: values.dateOfPurchase,
+      dateOfPurchase: values.dateOfPurchase,
       notes: values.notes || null,
     })
     .eq("id", id);
@@ -61,7 +64,7 @@ export const updateAsset = async (id: number, values: AssetData) => {
   return data;
 };
 
-export const getAssets = async (id?: number): Promise<AssetData[]> => {
+export const getAssets = async (id?: number): Promise<AssetDataBase[]> => {
   let query = supabase.from("assets").select("*");
 
   if (id !== undefined) {
@@ -78,7 +81,9 @@ export const getAssets = async (id?: number): Promise<AssetData[]> => {
 };
 
 export const deleteAsset = async (id: number) => {
-  const { data, error } = await supabase.from("asset").delete().eq("id", id);
+  console.log('deleing', id);
+  
+  const { data, error } = await supabase.from("assets").delete().eq("id", id);
 
   if (error) {
     console.error( error);
