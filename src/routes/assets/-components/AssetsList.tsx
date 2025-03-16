@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button';
 
 
 export const AssetsList = () => {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['assets', null],
     queryFn: () => getAssets(),
   });
@@ -30,7 +30,8 @@ export const AssetsList = () => {
   const delAsset = useMutation({
     mutationFn: (id: number) => deleteAsset(id),
     onSuccess: () => {
-      toast.success('Asset deleted successfully');
+      refetch()
+      toast.success('Asset deleted successfully')
     },
     onError: () => {
       toast.error('Error deleting asset');
