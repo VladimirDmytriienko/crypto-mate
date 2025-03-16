@@ -23,14 +23,11 @@ const Nav = () => {
         add-asset
       </Link>
       {isAuthenticated ?
-        <>
-          <Link to="/" className="text-gray-300 hover:text-white transition">
-            isAuthenticated
-          </Link>
-          <Button onClick={() => signOut()}>
-            signOut
-          </Button>
-        </>
+
+        <Button onClick={() => signOut()}>
+          signOut
+        </Button>
+
 
         :
         <>
