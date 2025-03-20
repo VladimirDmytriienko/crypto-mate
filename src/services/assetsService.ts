@@ -64,20 +64,28 @@ export const updateAsset = async (id: number, values: AssetDataBase) => {
   return data;
 };
 
-export const getAssets = async (id?: number): Promise<AssetDataBase[]> => {
-  let query = supabase.from("assets").select("*");
+export const getAssets = async (
+  page: number = 1,
+  id?: number
+): Promise<{ data: AssetDataBase[]; total: number; totalPages: number }> => {
+  const limit = 10;
+  let query = supabase.from("assets").select("*", { count: "exact" });
 
-  if (id !== undefined) {
-    query = query.eq("id", id);
-  }
+  if (id !== undefined) query = query.eq("id", id);
 
-  const { data, error } = await query;
-  if (error) {
-    console.error( error);
-    throw error;
-  }
-  
-  return data;
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+  query = query.range(from, to);
+
+  const { data, count, error } = await query;
+
+  if (error) throw error;
+
+  return {
+    data: data || [],
+    total: count || 0,
+    totalPages: Math.ceil((count || 0) / limit),
+  };
 };
 
 export const deleteAsset = async (id: number) => {

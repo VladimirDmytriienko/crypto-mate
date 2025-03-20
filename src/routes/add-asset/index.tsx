@@ -6,5 +6,5 @@ export const Route = createFileRoute('/add-asset/')({
 })
 
 function RouteComponent() {
-  return <><AddAsset onSubmit={console.log} /></>
+  return <><AddAsset /></>
 }

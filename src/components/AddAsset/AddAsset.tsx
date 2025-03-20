@@ -28,6 +28,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuthQuery } from '@/hooks/useAuthQuery';
 import { AssetData } from '@/services/assetsService';
 import { toast, } from 'sonner';
+import { useNavigate } from '@tanstack/react-router';
 
 interface AddAssetProps {
   initialData?: AssetDataBase;
@@ -35,7 +36,6 @@ interface AddAssetProps {
 }
 
 const validationSchema = Yup.object({
-  // email: Yup.string().required("Required"),
   assetName: Yup.string().required("Required"),
   symbol: Yup.string().required("Required"),
   type: Yup.string().required("Required"),
@@ -47,18 +47,17 @@ const validationSchema = Yup.object({
 
 const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
   const { user } = useAuthQuery()
-
+  const navigate = useNavigate()
   const mutation = useMutation({
     mutationFn: async (values: AssetDataBase | AssetData) => {
       if ('id' in values) {
-        console.log("'id' in values");
-
         return updateAsset(values.id, values);
       }
       return addAsset(values);
     },
     onSuccess: () => {
-      toast('Asset added successfully');
+      toast('Asset added successfully')
+      navigate({ to: '/assets' })
     },
     onError: (error) => {
       console.error("Error adding asset:", error);
@@ -184,7 +183,7 @@ const AddAsset: FC<AddAssetProps> = ({ initialData, }) => {
               </div>
 
               <div className="flex justify-end space-x-2">
-                <Button variant="outline" type="button">
+                <Button variant="outline" type="button" onClick={() => navigate({ to: '/assets' })} >
                   Cancel
                 </Button>
                 <Button type="submit">{initialData ? "Update" : "Save"}</Button>
