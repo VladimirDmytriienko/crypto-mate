@@ -24,7 +24,7 @@ export const AssetsList = () => {
   const [page, setPage] = useState(1);
   const [selectedNotes, setSelectedNotes] = useState<null | string>(null)
 
-  const { data, isFetching } = useQuery({
+  const { data, } = useQuery({
     queryKey: ['assets', page],
     queryFn: () => getAssets(page)
   });
