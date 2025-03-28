@@ -21,12 +21,14 @@ import { Button } from '@/components/ui/button';
 import { PaginationControls } from '@/components/PaginationControls/PaginationControls'
 
 export const AssetsList = () => {
+
   const [page, setPage] = useState(1);
   const [selectedNotes, setSelectedNotes] = useState<null | string>(null)
 
   const { data, } = useQuery({
     queryKey: ['assets', page],
     queryFn: () => getAssets(page)
+
   });
 
   const assets = data?.data ?? []
@@ -35,7 +37,8 @@ export const AssetsList = () => {
   const delAsset = useMutation({
     mutationFn: (id: number) => deleteAsset(id),
     onSuccess: () => {
-      toast.success('Asset deleted successfully');
+      refetch()
+      toast.success('Asset deleted successfully')
     },
     onError: () => {
       toast.error('Error deleting asset');
