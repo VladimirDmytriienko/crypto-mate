@@ -5,6 +5,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface CryptoData {
   id: string
@@ -48,24 +49,28 @@ const CoinGecko = () => {
     return value >= 0 ? 'default' : 'destructive'
   }
 
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Top Cryptocurrencies</h2>
-        <div className="flex gap-2">
+      <div className="flex flex-wrap items-center justify-between w-full max-w-full gap-2">
+        <h2 className="text-2xl font-bold break-words hyphens-auto">
+          Top Cryptocurrencies
+        </h2>
+
+        <div className="flex gap-2 flex-wrap">
           <Button
             variant="outline"
             onClick={() => setPage(old => Math.max(old - 1, 1))}
             disabled={page === 1}
           >
-            Previous
+            <ChevronLeft />
           </Button>
           <Button
             variant="outline"
             onClick={() => setPage(old => old + 1)}
             disabled={!data || data.length < 10}
           >
-            Next
+            <ChevronRight />
           </Button>
         </div>
       </div>

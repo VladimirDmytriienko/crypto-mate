@@ -1,5 +1,5 @@
 import AddAsset from '@/components/AddAsset/AddAsset';
-import { getAssets } from '@/services/assetsService';
+import { getAssetById } from '@/services/assetsService';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from '@tanstack/react-router';
 
@@ -7,15 +7,16 @@ import { useParams } from '@tanstack/react-router';
 
 const EditForm = () => {
   const { assetId } = useParams({ strict: false })
-  const { data: assetsQuery, isLoading: assetsLoading } = useQuery({
-    queryKey: ['assets'],
-    queryFn: () => getAssets(assetId),
+  const { data: asset, isLoading: assetsLoading } = useQuery({
+    queryKey: ["asset", assetId],
+    queryFn: () => getAssetById(+assetId),
+    enabled: !!assetId,
   });
 
   return (
     <>
       {assetsLoading ? 'loading' : ''}
-      <AddAsset initialData={assetsQuery?.[0]} />
+      <AddAsset initialData={asset} />
     </>
   )
 }

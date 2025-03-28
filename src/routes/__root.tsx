@@ -9,7 +9,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className="min-h-screen  bg-zinc-950 dark:bg-white flex flex-col items-center">
+
+      <div className="min-h-screen pb-8 bg-zinc-950 dark:bg-white flex flex-col items-center">
+
         <Nav />
         <div className="w-full max-w-7xl mx-auto px-2">
           <Outlet />

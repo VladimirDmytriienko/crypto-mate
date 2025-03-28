@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { MoreHorizontal } from 'lucide-react';
+import { ChevronDown, MoreHorizontal } from 'lucide-react';
 import { toast } from 'sonner';
 import { Link } from '@tanstack/react-router';
 import { getAssets, deleteAsset } from '@/services/assetsService';
@@ -18,14 +18,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from '@/components/ui/button';
-
+import { PaginationControls } from '@/components/PaginationControls/PaginationControls'
 
 export const AssetsList = () => {
+
+  const [page, setPage] = useState(1);
+  const [selectedNotes, setSelectedNotes] = useState<null | string>(null)
+
   const { data, refetch } = useQuery({
-    queryKey: ['assets', null],
-    queryFn: () => getAssets(),
+    queryKey: ['assets', page],
+    queryFn: () => getAssets(page)
+
   });
-  const [selectedNotes, setSelectedNotes] = useState<null | string>(null);
+
+  const assets = data?.data ?? []
+  const totalPages = data?.totalPages ?? 0
 
   const delAsset = useMutation({
     mutationFn: (id: number) => deleteAsset(id),
@@ -37,9 +44,30 @@ export const AssetsList = () => {
       toast.error('Error deleting asset');
     },
   })
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage > 0 && newPage <= totalPages) setPage(newPage)
+  }
+
   return (
     <Card className="p-4">
-      <h2 className="text-lg font-semibold mb-4">Assets List</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold">Assets List</h2>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              Sort by: <ChevronDown className="ml-2 w-4 h-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {/* {["assetName", "symbol", "purchasePrice", "dateOfPurchase"].map((field) => (
+              <DropdownMenuItem key={field} onClick={() => toggleSortOrder(field)}>
+                {field} {sortField === field ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+              </DropdownMenuItem>
+            ))} */}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -53,7 +81,7 @@ export const AssetsList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((asset) => (
+          {assets?.map((asset) => (
             <TableRow key={asset.id}>
               <TableCell>{asset.assetName}</TableCell>
               <TableCell>{asset.symbol}</TableCell>
@@ -88,6 +116,8 @@ export const AssetsList = () => {
           ))}
         </TableBody>
       </Table>
+
+      <PaginationControls page={page} totalPages={totalPages} onPageChange={handlePageChange} />
 
       <Dialog open={!!selectedNotes} onOpenChange={() => setSelectedNotes(null)}>
         <DialogContent>
