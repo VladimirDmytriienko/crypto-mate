@@ -31,7 +31,7 @@ import { toast, } from 'sonner';
 import { useNavigate } from '@tanstack/react-router';
 
 interface AddAssetProps {
-  initialData?: AssetDataBase;
+  initialData?: AssetDataBase | null;
   onSubmit?: (values: AssetData) => void;
 }
 

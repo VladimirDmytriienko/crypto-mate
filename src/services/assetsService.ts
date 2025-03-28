@@ -87,6 +87,20 @@ export const getAssets = async (
     totalPages: Math.ceil((count || 0) / limit),
   };
 };
+export const getAssetById = async (id: number): Promise<AssetDataBase | null> => {
+  const { data, error } = await supabase
+    .from("assets")
+    .select("*")
+    .eq("id", id)
+    .single(); 
+
+  if (error) {
+    console.error("Error fetching asset by ID:", error);
+    return null;
+  }
+
+  return data;
+};
 
 export const deleteAsset = async (id: number) => {
   console.log('deleing', id);
