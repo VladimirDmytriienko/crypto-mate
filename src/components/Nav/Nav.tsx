@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
-import { useAuthQuery } from '@/hooks/useAuthQuery';
-import { cn } from '@/lib/utils';
-import { Button } from '../ui/button';
+import { useAuthQuery } from '@/hooks/useAuthQuery'
+import { cn } from '@/lib/utils'
+import { Button } from '../ui/button'
 
 type NavProps = {
   position?: 'top' | 'bottom'
@@ -11,6 +11,7 @@ const Nav = ({ position = 'top' }: NavProps) => {
   const { user, signOut } = useAuthQuery()
   const isAuthenticated = !!user
   const isBottom = position === 'bottom'
+
   const links = [
     { to: '/', label: 'Dashboard' },
     { to: '/about', label: 'About' },
@@ -18,19 +19,18 @@ const Nav = ({ position = 'top' }: NavProps) => {
     { to: '/add-asset', label: 'Add Asset' },
   ]
 
-  const getLinkClasses = (isActive: boolean) =>
-    cn(
-      'relative overflow-hidden rounded-full px-4 py-2 text-sm font-medium border border-white/10 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40',
-      'hover:-translate-y-1 hover:scale-[1.05] hover:border-white/80 hover:bg-white/35 hover:text-black hover:shadow-[0_16px_32px_-18px_rgba(255,255,255,0.95)]',
-      'after:absolute after:inset-0 after:rounded-full after:border after:border-white/50 after:opacity-0 after:transition-opacity after:duration-300 after:content-[""] hover:after:opacity-100',
-      isActive
-        ? 'bg-white text-black shadow-lg hover:bg-white hover:text-black'
-        : 'text-gray-100'
-    )
+  const linkBase =
+    'inline-flex h-9 items-center justify-center rounded-full px-4 text-sm font-medium ' +
+    'border border-transparent text-white/90 transition-all duration-300 ease-out ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ' +
+    'focus-visible:ring-offset-2 focus-visible:ring-offset-black/40'
 
   const navClasses = cn(
-    'z-50 bg-black/60 dark:bg-black/60 backdrop-blur-lg border border-white/20 dark:border-white/10 text-white rounded-full shadow-lg transition-all duration-300',
-    'flex items-center gap-3 px-4 sm:px-6 py-3 w-full max-w-4xl',
+    'z-50 backdrop-blur-lg bg-black/60 text-white',
+    'flex items-center gap-3 px-5 sm:px-6 py-2.5 w-full max-w-4xl',
+    'rounded-full border border-white/40',
+    'shadow-[0_10px_30px_-12px_rgba(255,255,255,0.45)]',
+    'transition-all duration-300 ease-out',
     isBottom
       ? 'fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)]'
       : 'sticky top-4 mt-4 mb-6'
@@ -43,18 +43,30 @@ const Nav = ({ position = 'top' }: NavProps) => {
           <Link
             key={to}
             to={to}
-            className={({ isActive }) => getLinkClasses(isActive)}
+            className={cn(
+              linkBase,
+              'hover:text-white hover:bg-white/10 hover:border-white/70',
+              'hover:shadow-[0_8px_24px_-10px_rgba(255,255,255,0.8)]'
+            )}
           >
             {label}
           </Link>
         ))}
       </div>
-      <div className="flex items-center gap-2 ml-auto">
+
+      <div className="ml-auto flex items-center gap-2">
         {isAuthenticated ? (
           <Button
             size="sm"
             variant="secondary"
-            className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.05] hover:border hover:border-white/70 hover:bg-white hover:text-black hover:shadow-[0_16px_32px_-18px_rgba(255,255,255,0.95)]"
+            className={cn(
+              'h-9 rounded-full px-4',
+              'transition-all duration-300 ease-out',
+              'hover:-translate-y-[2px]',
+              'hover:bg-white hover:text-black',
+              'hover:border hover:border-white/70',
+              'hover:shadow-[0_12px_24px_-14px_rgba(255,255,255,0.85)]'
+            )}
             onClick={() => signOut()}
           >
             Sign out
@@ -64,21 +76,31 @@ const Nav = ({ position = 'top' }: NavProps) => {
             <Button
               size="sm"
               variant="ghost"
-              className="text-gray-200 hover:text-black transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.05] hover:bg-white/40 hover:border hover:border-white/70 hover:shadow-[0_12px_24px_-14px_rgba(255,255,255,0.9)]"
+              className={cn(
+                'h-9 rounded-full px-4 text-gray-200',
+                'transition-all duration-300 ease-out',
+                'hover:-translate-y-[2px]',
+                'hover:text-white hover:bg-white/10',
+                'hover:border hover:border-white/60',
+                'hover:shadow-[0_10px_22px_-14px_rgba(255,255,255,0.85)]'
+              )}
               asChild
             >
-              <Link to="/sign-in">
-                Sign in
-              </Link>
+              <Link to="/sign-in">Sign in</Link>
             </Button>
+
             <Button
               size="sm"
-              className="bg-white text-black hover:bg-white transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.05] hover:shadow-[0_18px_36px_-18px_rgba(255,255,255,0.9)] hover:border hover:border-white/80"
+              className={cn(
+                'h-9 rounded-full px-4 bg-white text-black',
+                'transition-all duration-300 ease-out',
+                'hover:-translate-y-[2px] hover:bg-white',
+                'hover:shadow-[0_12px_28px_-16px_rgba(255,255,255,0.9)]',
+                'hover:border hover:border-white/70'
+              )}
               asChild
             >
-              <Link to="/sign-up">
-                Sign up
-              </Link>
+              <Link to="/sign-up">Sign up</Link>
             </Button>
           </>
         )}
